@@ -4,7 +4,7 @@
   "version": "2.5.0",
   "ignore": [
     "demo",
-	"terminalauth",
+    "terminalauth",
     "test",
     ".gitignore"
   ],
@@ -70,8 +70,8 @@
   },
   "scripts": {
     "prestart": "npm run build",
-    "start": "node demo/app",
-    "terminalauth": "npm terminalauth/app",
+    "demo": "node demo/app",
+    "start": "node terminalauth/app",
     "dev": "nodemon -e js,ts,css --watch src --watch demo --exec npm start",
     "lint": "tslint src/*.ts src/**/*.ts",
     "test": "gulp test",
