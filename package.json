@@ -4,12 +4,12 @@
   "version": "2.5.0",
   "ignore": [
     "demo",
-	"demo-with-authentication",
+	"terminalauth",
     "test",
     ".gitignore"
   ],
   "main": "lib/xterm.js",
-  "repository": "https://github.com/sourcelair/xterm.js",
+  "repository": "https://github.com/mccahill/xterm.js",
   "license": "MIT",
   "files": [
     "*.js",
@@ -71,7 +71,7 @@
   "scripts": {
     "prestart": "npm run build",
     "start": "node demo/app",
-    "start-with-auth": "node demo-with-authentication/app",
+    "terminalauth": "node terminalauth/app",
     "dev": "nodemon -e js,ts,css --watch src --watch demo --exec npm start",
     "lint": "tslint src/*.ts src/**/*.ts",
     "test": "gulp test",
