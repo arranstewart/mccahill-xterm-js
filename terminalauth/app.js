@@ -5,37 +5,71 @@ var os = require('os');
 var pty = require('node-pty');
 
 var passport = require('passport');
-var Strategy = require('passport-http-bearer').Strategy;
+var Strategy = require('passport-local').Strategy;
 
-// Configure the Bearer strategy for use by Passport.
+var users = []
+
+// Configure the local strategy for use by Passport.
 //
-// The Bearer strategy requires a `verify` function which receives the
-// credentials (`token`) contained in the request.  The function must invoke
-// `cb` with a user object, which will be set at `req.user` in route handlers
-// after authentication.
-passport.use(new Strategy(
-  function(token, cb) {
-      console.log('checking bearer token: ' + token);
-      // the environmental variable NICETOKEN will be passed into the docker container
-      // so this is what we check the bearer token against
-      var a_nice_token = process.env.NICETOKEN;
-      console.log('reading token from env: ', a_nice_token);
-      console.log('comparison is: ', ( token == a_nice_token ));
-      if ( token == a_nice_token ) {
-        // the generic user in the docker container is 'student'
-        return cb(null, 'student');
-      } else {  
-        return cb(null, false); 
-      }
+// The local strategy require a `verify` function which receives the credentials
+// (`username` and `password`) submitted by the user.  The function must verify
+// that the password is correct and then invoke `cb` with a user object, which
+// will be set at `req.user` in route handlers after authentication.
+passport.use(new Strategy({
+    usernameField: 'username',
+    passwordField: 'token',
+    session: false
+  },
+  function(username, password, cb) {
+    console.log('checking password: ' + password ); 
+
+    // the environmental variable NICETOKEN will be passed into the docker container
+    // so this is what we check the password against
+
+    var a_nice_token = process.env.NICETOKEN;
+
+    if ( password == a_nice_token ) {
+      // the generic user in the docker container is 'student'
+      return cb(null, 'student');
+    } else {
+      return cb(null, false);
+    }
   }));
+
+
+passport.serializeUser(function(user, cb) {
+  var id = users.length + 1
+  users[id] = user
+  console.log('serializing ' + user + ' with id ' + id );
+  cb(null, id);
+});
+
+passport.deserializeUser(function(id, cb) {
+    console.log('deserializing id ' + id + ' as user ' + users[id]  );
+    cb(null, users[id] );
+});
+
 
 var terminals = {},
     logs = {};
 
+
+// Initialize Passport and restore authentication state, if any, from the session.
+app.use(passport.initialize());
+app.use(passport.session());
+
 app.use('/build', express.static(__dirname + '/../build'));
 
+
+app.get('/loginfail',
+  function(req, res) {
+  res.status(400);
+  res.send('Unauthorized - bad token');
+});
+
+
 app.get('/', 
-  passport.authenticate('bearer', { session: false }),
+  passport.authenticate('local', { failureRedirect: '/loginfail' }),
   function(req, res){
   res.sendFile(__dirname + '/index.html');
 });
@@ -49,6 +83,7 @@ app.get('/main.js', function(req, res){
 });
 
 app.post('/terminals', function (req, res) {
+  passport.authenticate('local', { failureRedirect: '/loginfail' });
   var cols = parseInt(req.query.cols),
       rows = parseInt(req.query.rows),
       term = pty.spawn(process.platform === 'win32' ? 'cmd.exe' : 'bash', [], {

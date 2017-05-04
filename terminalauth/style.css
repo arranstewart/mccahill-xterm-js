@@ -4,11 +4,16 @@ body {
     color: #111;
 }
 
-h1 {
-    text-align: center;
+#controls-container {
+    float: left;
+    width: 800px;
+    height: 450px;
+    margin: 0 auto;
+    padding: 2px;
 }
 
 #terminal-container {
+    float: left;
     width: 800px;
     height: 450px;
     margin: 0 auto;

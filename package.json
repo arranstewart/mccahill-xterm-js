@@ -60,7 +60,7 @@
     "node-pty": "^0.4.1",
     "nodemon": "1.10.2",
     "passport": "0.3.2",
-    "passport-http-bearer": "1.0.1",
+    "passport-local": "1.0.0",
     "sleep": "^3.0.1",
     "sorcery": "^0.10.0",
     "tslint": "^4.0.2",
@@ -70,8 +70,8 @@
   },
   "scripts": {
     "prestart": "npm run build",
-    "demo": "node demo/app",
     "start": "node terminalauth/app",
+    "demo": "node demo/app",
     "dev": "nodemon -e js,ts,css --watch src --watch demo --exec npm start",
     "lint": "tslint src/*.ts src/**/*.ts",
     "test": "gulp test",

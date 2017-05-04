@@ -1,7 +1,7 @@
 <!doctype html>
 <html>
     <head>
-        <title>xterm.js demo</title>
+        <title>xterm.js</title>
         <link rel="stylesheet" href="/build/xterm.css" />
         <link rel="stylesheet" href="/build/addons/fullscreen/fullscreen.css" />
         <link rel="stylesheet" href="style.css" />
@@ -12,44 +12,32 @@
         <script src="/build/addons/fullscreen/fullscreen.js" ></script>
     </head>
     <body>
-        <h1>xterm.js: xterm, in the browser</h1>
         <div id="terminal-container"></div>
-        <div>
-          <h2>Options</h2>
-          <p>
-            <label><input type="checkbox" id="option-cursor-blink"> cursorBlink</label>
-          </p>
-          <p>
+        <div id="controls-container">
+            <label for="cols">columns</label>
+                <input type="number" id="cols" />
+
+             <label for="rows">rows</label>
+                <input type="number" id="rows" />
+          <br>
             <label>
-              cursorStyle
+              cursor style
               <select id="option-cursor-style">
                 <option value="block">block</option>
                 <option value="underline">underline</option>
                 <option value="bar">bar</option>
               </select>
             </label>
-          </p>
-          <p>
-            <label>scrollback <input type="number" id="option-scrollback" value="1000" /></label>
-          </p>
-          <p>
-            <label>tabStopWidth <input type="number" id="option-tabstopwidth" value="8" /></label>
-          </p>
-          <div>
-          	<h3>Size</h3>
-            <div>
-              <div style="display: inline-block; margin-right: 16px;">
-                <label for="cols">Columns</label>
-                <input type="number" id="cols" />
-              </div>
-              <div style="display: inline-block; margin-right: 16px;">
-                <label for="rows">Rows</label>
-                <input type="number" id="rows" />
-              </div>
-            </div>
-          </div>
+            <label>
+              blink
+              <input type="checkbox" id="option-cursor-blink">
+            </label>
+
+          <br>
+            <label>scrollback<input type="number" id="option-scrollback" value="1000" /></label>
+            <label>tab stops<input type="number" id="option-tabstopwidth" value="8" /></label>
+          <br>
         </div>
-        <p><strong>Attention:</strong> The demo is a barebones implementation and is designed for xterm.js evaluation purposes only. Exposing the demo to the public as is would introduce security risks for the host.</p>
         <script src="main.js" defer ></script>
     </body>
 </html>
