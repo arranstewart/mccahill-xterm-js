@@ -74,7 +74,8 @@ app.get('/loginfail',
 app.get('/', 
   passport.authenticate('local', { failureRedirect: '/loginfail' }),
   function(req, res){
-    // not worth an entire templating engine to replace one variable in on file, so...
+    // not worth an entire templating engine to replace one variable in on file, so
+    // read the file and replace a string with the magic token for this instance
     myindex = fs.readFileSync(__dirname + '/index.html').toString();
     myindex = myindex.replace("%USERTOKEN%", req.query.token);
     res.setHeader('Content-Type', 'text/html');
@@ -148,7 +149,7 @@ app.ws('/terminals/:pid', function (ws, req) {
 });
 
 app.get('/download-archive', function(req, res){
-    //passport.authenticate('local', { failureRedirect: '/loginfail' }),
+    passport.authenticate('local', { failureRedirect: '/loginfail' }),
 
     var archive = archiver('zip');	
 
