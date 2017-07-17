@@ -139,6 +139,20 @@ app.ws('/terminals/:pid', function (ws, req) {
   });
 });
 
+app.get('/download-archive', 
+  passport.authenticate('local', { failureRedirect: '/loginfail' }),
+  function(req, res){
+    res.download('/home/student/.profile', 'profile.txt', function(err){
+      if (err) {
+        // Handle error, but keep in mind the response may be partially-sent
+        // so check res.headersSent
+      } else {
+        // cleanupo after the download by removing any temp files
+      }
+    })
+});
+
+
 var port = process.env.PORT || 3000,
     host = os.platform() === 'win32' ? '127.0.0.1' : '0.0.0.0';
 
