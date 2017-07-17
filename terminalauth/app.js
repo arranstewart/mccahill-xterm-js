@@ -3,6 +3,9 @@ var app = express();
 var expressWs = require('express-ws')(app);
 var os = require('os');
 var pty = require('node-pty');
+var fs = require('fs');
+var archiver = require('archiver');
+
 
 var passport = require('passport');
 var Strategy = require('passport-local').Strategy;
