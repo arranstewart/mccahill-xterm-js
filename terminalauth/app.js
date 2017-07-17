@@ -140,7 +140,7 @@ app.ws('/terminals/:pid', function (ws, req) {
 });
 
 app.get('/download-archive', 
-  passport.authenticate('local', { failureRedirect: '/loginfail' }),
+  //passport.authenticate('local', { failureRedirect: '/loginfail' }),
   function(req, res){
     res.download('/home/student/.profile', 'profile.txt', function(err){
       if (err) {
