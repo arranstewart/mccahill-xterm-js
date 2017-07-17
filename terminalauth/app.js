@@ -74,9 +74,9 @@ app.get('/',
     // not worth an entire templating engine to replace one variable in on file, so...
     myindex = fs.readFileSync(__dirname + '/index.html').toString();
     myindex = myindex.replace("%NICETOKEN%", req.query.token);
-	res.setHeader('Content-Type', 'application/html');
+	res.setHeader('Content-Type', 'text/html');
 	res.send(myindex);
-  #res.sendFile(__dirname + '/index.html');
+  //res.sendFile(__dirname + '/index.html');
 });
 
 app.get('/style.css', function(req, res){
