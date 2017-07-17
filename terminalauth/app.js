@@ -75,11 +75,11 @@ app.get('/',
   passport.authenticate('local', { failureRedirect: '/loginfail' }),
   function(req, res){
     // not worth an entire templating engine to replace one variable in on file, so...
-    //myindex = fs.readFileSync(__dirname + '/index.html').toString();
-    //myindex = myindex.replace("%NICETOKEN%", req.query.token);
-    //res.setHeader('Content-Type', 'text/html');
-    //res.send(myindex);
-  res.sendFile(__dirname + '/index.html');
+    myindex = fs.readFileSync(__dirname + '/index.html').toString();
+    myindex = myindex.replace("%USERTOKEN%", req.query.token);
+    res.setHeader('Content-Type', 'text/html');
+    res.send(myindex);
+    //res.sendFile(__dirname + '/index.html');
 });
 
 app.get('/style.css', function(req, res){
@@ -149,14 +149,8 @@ app.ws('/terminals/:pid', function (ws, req) {
 
 app.get('/download-archive', function(req, res){
     //passport.authenticate('local', { failureRedirect: '/loginfail' }),
-    //res.sendFile('/etc/hosts');
-	
-    var archive = archiver('zip');
-	//var output = fs.createWriteStream('/tmp/archive-download.zip');
-	//var archive = archiver('zip', {
-	//    zlib: { level: 9 } // Sets the compression level.
-	//});
-	
+
+    var archive = archiver('zip');	
 
     archive.on('error', function(err) {
       res.status(500).send({error: err.message});
@@ -176,7 +170,6 @@ app.get('/download-archive', function(req, res){
 	// pipe archive data to the file
 	//archive.pipe(output);
 
-    //archive.directory('/usr/local/src/', false);
     archive.directory('/home/student', false);
     archive.finalize();
 });
