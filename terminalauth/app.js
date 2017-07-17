@@ -139,25 +139,10 @@ app.ws('/terminals/:pid', function (ws, req) {
   });
 });
 
-app.get('/download-archive', 
-  //passport.authenticate('local', { failureRedirect: '/loginfail' }),
-  var options = {
-    dotfiles: 'deny',
-    headers: {
-        'x-timestamp': Date.now(),
-        'x-sent': true
-    }
-  };
-
-  res.sendFile('/etc/hosts', options, function (err) {
-    if (err) {
-      next(err);
-    } else {
-      console.log('Sent:', fileName);
-    }
-  });
+app.get('/download-archive', function(req, res){
+    //passport.authenticate('local', { failureRedirect: '/loginfail' }),
+    res.sendFile('/etc/hosts');
 });
-
 
 var port = process.env.PORT || 3000,
     host = os.platform() === 'win32' ? '127.0.0.1' : '0.0.0.0';
