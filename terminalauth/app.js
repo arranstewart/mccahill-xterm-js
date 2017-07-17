@@ -149,7 +149,36 @@ app.ws('/terminals/:pid', function (ws, req) {
 
 app.get('/download-archive', function(req, res){
     //passport.authenticate('local', { failureRedirect: '/loginfail' }),
-    res.sendFile('/etc/hosts');
+    //res.sendFile('/etc/hosts');
+	
+    //var archive = archiver('zip');
+	var output = fs.createWriteStream('/tmp/archive-download.zip');
+	var archive = archiver('zip', {
+	    zlib: { level: 9 } // Sets the compression level.
+	});
+	
+
+    archive.on('error', function(err) {
+      res.status(500).send({error: err.message});
+    });
+
+    //on stream closed we can end the request
+    archive.on('end', function() {
+      console.log('Archive wrote %d bytes', archive.pointer());
+    });
+
+    //set the archive name
+    //res.attachment('archive-name.zip');
+
+    //this is the streaming magic
+    //archive.pipe(res);
+	
+	// pipe archive data to the file
+	archive.pipe(output);
+
+    archive.directory('/usr/local/src/', false);
+
+    archive.finalize();
 });
 
 var port = process.env.PORT || 3000,
