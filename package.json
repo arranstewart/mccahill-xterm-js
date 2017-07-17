@@ -59,6 +59,7 @@
     "merge-stream": "^1.0.1",
     "node-pty": "^0.4.1",
     "nodemon": "1.10.2",
+    "archiver": "^2.0.0",
     "passport": "0.3.2",
     "passport-local": "1.0.0",
     "sleep": "^3.0.1",
@@ -66,8 +67,7 @@
     "tslint": "^4.0.2",
     "typescript": "~2.2.0",
     "vinyl-buffer": "^1.0.0",
-    "vinyl-source-stream": "^1.1.0",
-	"archiver": "^2.0.0"
+    "vinyl-source-stream": "^1.1.0"
   },
   "scripts": {
     "prestart": "npm run build",
