@@ -149,7 +149,7 @@ app.ws('/terminals/:pid', function (ws, req) {
 });
 
 app.get('/download-archive', function(req, res){
-    passport.authenticate('local', { failureRedirect: '/loginfail' }),
+//    passport.authenticate('local', { failureRedirect: '/loginfail' }),
     function(req, res){	
 	    var archive = archiver('zip');	
 
@@ -173,7 +173,7 @@ app.get('/download-archive', function(req, res){
 
 	    archive.directory('/home/student', false);
 	    archive.finalize();
-    }
+//    }
 });
 
 var port = process.env.PORT || 3000,
