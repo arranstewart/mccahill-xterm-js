@@ -16,3 +16,4 @@ build/
 
 # Directories needed for code coverage
 /coverage/
+.DS_Store
