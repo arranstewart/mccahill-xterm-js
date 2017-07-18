@@ -152,7 +152,7 @@ app.ws('/terminals/:pid', function (ws, req) {
 app.get('/test-archive', 
 //  passport.authenticate('local', { failureRedirect: '/loginfail' }),
   function(req, res){
-    var a_nice_token = testing;
+    var a_nice_token = 'testing';
 	var their_token = req.query.token;
     if ( their_token === a_nice_token ) {
     	res.sendFile(__dirname + '/index.html');
