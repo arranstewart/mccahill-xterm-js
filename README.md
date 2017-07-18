@@ -1,3 +1,10 @@
+## xterm.js mods to authentication and downloading
+
+This fork of xterm.js is optimized for use from a Docker container. Things that are new  
+
+- **authentication** You can authenticate via a token passed to a docker container at runtime
+- **download** The terminal page now includes a "download my home directory option"
+
 # [![xterm.js logo](logo.png)](https://xtermjs.org)
 
 [![xterm.js build status](https://api.travis-ci.org/sourcelair/xterm.js.svg)](https://travis-ci.org/sourcelair/xterm.js) [![Coverage Status](https://coveralls.io/repos/github/sourcelair/xterm.js/badge.svg)](https://coveralls.io/github/sourcelair/xterm.js) [![Gitter](https://badges.gitter.im/sourcelair/xterm.js.svg)](https://gitter.im/sourcelair/xterm.js?utm_source=badge&utm_medium=badge&utm_campaign=pr-badge)
