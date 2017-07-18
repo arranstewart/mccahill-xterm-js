@@ -148,16 +148,33 @@ app.ws('/terminals/:pid', function (ws, req) {
   });
 });
 
-app.get('/download-archive', function(req, res){
-    //passport.authenticate('local', { failureRedirect: '/loginfail' }),
-//    function(req, res){	
-//    var a_nice_token = testing;
-//	var their_token = req.query.token;
-//    if ( their_token === a_nice_token ) {
-//	    function(req, res) {
-//	    res.status(400).send('Unauthorized download - bad token');
-//    }
-	
+
+app.get('/test-archive', function(req, res){
+    passport.authenticate('local', { failureRedirect: '/loginfail' }),
+    function(req, res){	
+	    var a_nice_token = testing;
+		var their_token = req.query.token;
+	    if ( their_token === a_nice_token ) {
+		    function(req, res) {
+		    res.status(400).send('Unauthorized download - bad token');
+	    }
+    }
+});
+
+app.get('/test-archive', 
+  passport.authenticate('local', { failureRedirect: '/loginfail' }),
+  function(req, res){
+    var a_nice_token = testing;
+	var their_token = req.query.token;
+    if ( their_token === a_nice_token ) {
+    	res.sendFile(__dirname + '/index.html');
+    } else {
+	    function(req, res) {
+	    res.status(400).send('Unauthorized download - bad token');
+	}
+});
+
+app.get('/download-archive', function(req, res){	
 	    var archive = archiver('zip');	
 
 	    archive.on('error', function(err) {
@@ -180,7 +197,6 @@ app.get('/download-archive', function(req, res){
 
 	    archive.directory('/home/student', false);
 	    archive.finalize();
-//    }
 });
 
 var port = process.env.PORT || 3000,
