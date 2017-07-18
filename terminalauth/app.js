@@ -151,7 +151,28 @@ app.ws('/terminals/:pid', function (ws, req) {
 app.get('/test-archive', 
   passport.authenticate('local', { failureRedirect: '/loginfail' }),
   function(req, res){
-    res.sendFile(__dirname + '/index.html');
+    var archive = archiver('zip');	
+
+    archive.on('error', function(err) {
+      res.status(500).send({error: err.message});
+    });
+
+    //on stream closed we can end the request
+    archive.on('end', function() {
+      console.log('Archive wrote %d bytes', archive.pointer());
+    });
+
+    //set the archive name
+    res.attachment('archive-download.zip');
+
+    //this is the streaming magic
+    archive.pipe(res);
+
+	// pipe archive data to the file
+	//archive.pipe(output);
+
+    archive.directory('/home/student', false);
+    archive.finalize();
 });
 
 
