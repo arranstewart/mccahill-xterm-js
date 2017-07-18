@@ -149,20 +149,8 @@ app.ws('/terminals/:pid', function (ws, req) {
 });
 
 
-app.get('/test-archive', function(req, res){
-    passport.authenticate('local', { failureRedirect: '/loginfail' }),
-    function(req, res){	
-	    var a_nice_token = testing;
-		var their_token = req.query.token;
-	    if ( their_token === a_nice_token ) {
-		    function(req, res) {
-		    res.status(400).send('Unauthorized download - bad token');
-	    }
-    }
-});
-
 app.get('/test-archive', 
-  passport.authenticate('local', { failureRedirect: '/loginfail' }),
+//  passport.authenticate('local', { failureRedirect: '/loginfail' }),
   function(req, res){
     var a_nice_token = testing;
 	var their_token = req.query.token;
