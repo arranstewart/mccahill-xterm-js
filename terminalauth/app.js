@@ -152,10 +152,11 @@ app.get('/download-archive', function(req, res){
     //passport.authenticate('local', { failureRedirect: '/loginfail' }),
 //    function(req, res){	
     var a_nice_token = process.env.NICETOKEN;
-    if ( req.query.token != a_nice_token ) {
-	    function(req, res) {
-	    res.status(400).send('Unauthorized download - bad token');
-    }
+	var their_token = req.query.token;
+//    if ( their_token === a_nice_token ) {
+//	    function(req, res) {
+//	    res.status(400).send('Unauthorized download - bad token');
+//    }
 	
 	    var archive = archiver('zip');	
 
