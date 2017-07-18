@@ -148,6 +148,11 @@ app.ws('/terminals/:pid', function (ws, req) {
   });
 });
 
+app.get('/test-archive', 
+  passport.authenticate('local', { failureRedirect: '/loginfail' }),
+  function(req, res){
+    res.sendFile(__dirname + '/index.html');
+});
 
 
 app.get('/download-archive', function(req, res){	
